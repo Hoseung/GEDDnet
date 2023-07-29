@@ -34,7 +34,7 @@ def max_pool_2x2(x):
 # %%
 def weight_variable(shape, std=0.1, trainable=True):
     """weight_variable generates a weight variable of a given shape."""
-    initial = tf.truncated_normal(shape, stddev=std)
+    initial = tf.compat.v1.truncated_normal(shape, stddev=std)
     return tf.Variable(initial, trainable=trainable)
 
 # %%
@@ -46,7 +46,7 @@ def bias_variable(shape, std=0.1, trainable=True):
     shape : list
         Size of weight variable
     '''
-    initial = tf.random_normal(shape, mean=0.0, stddev=std)
+    initial = tf.compat.v1.random_normal(shape, mean=0.0, stddev=std)
     return tf.Variable(tf.abs(initial), trainable=trainable)
 
 # %%

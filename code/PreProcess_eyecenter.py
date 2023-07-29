@@ -21,7 +21,7 @@ def grayNhist(input_image):
 
 def point_to_matrix(points, desiredDist = 224 * 0.6):
     # obtain the affine matrix given two points
-    points = points.astype(np.int)
+    points = points.astype(np.int_)
     dX = points[2] - points[0]
     dY = points[3] - points[1]
     angle = np.degrees(np.arctan2(dY, dX))
@@ -126,6 +126,11 @@ def WarpNDraw(input_image, eye_lm, gaze_vec, cam_new, inv_cam_new):
     #print(g_end[1,0])
     g_end = g_end[:2,0] / g_end[2,0]
 
-    cv2.line(output_image, (48, int(eye_lm)), tuple(g_end), (0, 255, 0), 2)
+    #print(g_end.shape)
 
-    return output_image
+    print("gaze end: ", (int(g_end[0]), int(g_end[1])))
+    print("eye_lm: ", (48, int(eye_lm)))
+
+    cv2.line(output_image, (48, int(eye_lm)), (int(g_end[0]), int(g_end[1])), (0, 255, 0), 2)
+
+    return output_image     

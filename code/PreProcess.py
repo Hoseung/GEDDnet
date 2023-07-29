@@ -53,7 +53,7 @@ def preprocess_eye_image(image, Augmentation, offset=(5,8), resize_size=(80, 120
         angle = tf.random.uniform([1], minval=-0.087, maxval=0.087)
         x_processed = tf.contrib.image.rotate(x_processed, angle)
         scale = tf.concat([tf.random.uniform([1], minval = 0.85, maxval = 1.15), tf.random.uniform([1], minval = 0.9, maxval = 1.1)],axis=0)
-        x_processed = tf.image.resize_images(x_processed, tf.cast(tf.round(scale*resize_size),dtype=tf.int32))
+        x_processed = tf.image.resize(x_processed, tf.cast(tf.round(scale*resize_size),dtype=tf.int32))
         img_shape = tf.shape(x_processed)[0:2]
         pad = tf.cast(tf.round(0.5*tf.cast(tf.constant(pad_size) - img_shape,dtype=tf.float32)),dtype=tf.int32)
         # pad to 74 * 112
@@ -68,7 +68,7 @@ def preprocess_eye_image(image, Augmentation, offset=(5,8), resize_size=(80, 120
                                 corner_y,corner_x, out_size[0], out_size[1])
 
     else:
-        #x_processed = tf.image.resize_images(x_processed, resize_size)
+        #x_processed = tf.image.resize(x_processed, resize_size)
         corner_y = tf.constant(resize_size[0]//2-out_size[0]//2,dtype=tf.int32)
         corner_x = tf.constant(resize_size[1]//2-out_size[1]//2,dtype=tf.int32)
         x_processed = tf.image.crop_to_bounding_box(x_processed,
@@ -89,7 +89,7 @@ def preprocess_face_image(image, Augmentation, offset=(12,12), resize_size=(120,
     if Augmentation == True:
         # input is 80*120, then crop 64*96
         scale = tf.random.uniform([2], minval = 0.85, maxval = 1.15)
-        x_processed = tf.image.resize_images(x_processed, tf.cast(tf.round(scale*resize_size),dtype=tf.int32))
+        x_processed = tf.image.resize(x_processed, tf.cast(tf.round(scale*resize_size),dtype=tf.int32))
         img_shape = tf.shape(x_processed)[0:2]
         pad = tf.cast(tf.round(0.5*tf.cast(tf.constant(pad_size) - img_shape,dtype=tf.float32)),dtype=tf.int32)
         # pad to 74 * 112

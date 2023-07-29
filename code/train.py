@@ -130,7 +130,7 @@ def main(_):
     vgg_vars = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES, scope="transfer")
 
     # optimizer
-    with tf.variable_scope("LearnRate"):
+    with tf.compat.v1.variable_scope("LearnRate"):
         global_step = tf.Variable(0, trainable=False)
         learning_rate = tf.train.exponential_decay(1e-3, global_step, 8000, 0.1,
                                                    staircase=True)

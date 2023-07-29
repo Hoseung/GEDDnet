@@ -16,7 +16,7 @@ import sys
 import os
 import numpy as np
 import random
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 import matplotlib.pyplot as plt
 import cv2
 import dlib
@@ -62,6 +62,10 @@ def sigmoid(x):
 
 
 def main(_):
+
+    # Comptibility with tensorflow 1
+    tf.compat.v1.disable_eager_execution()
+
     # get camera matrix
     dataset = spio.loadmat(FLAGS.camera_mat)
     cameraMat = dataset['camera_matrix']
@@ -146,7 +150,7 @@ def main(_):
                 # array
                 if ii == 0:
                     tmp = np.array([rect.left(), rect.top(), rect.right(),rect.bottom()]) / scale
-                    tmp = tmp.astype(np.long)
+                    tmp = tmp.astype(np.longlong)
                     rect_new = dlib.rectangle(tmp[0], tmp[1], tmp[2], tmp[3])
                     shape = predictor(gray_big, rect_new)
                     shape = shape_to_np(shape)
