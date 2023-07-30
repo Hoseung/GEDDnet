@@ -86,7 +86,7 @@ def main(_):
     cv2.resizeWindow("win_eye", 2*192, 2*128)
     # define video capturer
     video_capture = cv2.VideoCapture(0)
-    video_capture.set(39, 0)
+    video_capture.set(cv2.CAP_PROP_AUTOFOCUS, 1)
     video_capture.set(3, 1920)
     video_capture.set(4, 1080)
     scale = 0.25
@@ -140,6 +140,8 @@ def main(_):
                                      interpolation=cv2.INTER_CUBIC)
             gray = cv2.cvtColor(frame_small, cv2.COLOR_BGR2GRAY)
             gray_big = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+            
+            # detect faces in the grayscale frame in every other frame
             if counter % 2 == 0:
                 rects = detector(gray, 1)
             # loop over the face detections
@@ -150,7 +152,7 @@ def main(_):
                 # array
                 if ii == 0:
                     tmp = np.array([rect.left(), rect.top(), rect.right(),rect.bottom()]) / scale
-                    tmp = tmp.astype(np.longlong)
+                    tmp = tmp.astype(int) # np.longlong) Has to be longlong??
                     rect_new = dlib.rectangle(tmp[0], tmp[1], tmp[2], tmp[3])
                     shape = predictor(gray_big, rect_new)
                     shape = shape_to_np(shape)
@@ -188,13 +190,14 @@ def main(_):
 
                 #####################
                 # insert your control code here, y_result is the gaze (pitch, yaw) in radis
+                print("Y_RESULT (in rad)", y_result)
                 #ser = serial.Serial('/dev/ttyUSB0', 9600)
 
                 yaw = y_result[0][0] * (180 / math.pi)
                 pitch = y_result[0][1] * (180 / math.pi)
 
-                print('pitch', pitch)
                 print('yaw', yaw)
+                print('pitch', pitch)
                 ### If you want to calculate the gaze vector in the original images
                 ### you should use the warpMat
 
