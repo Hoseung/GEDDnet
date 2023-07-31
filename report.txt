@@ -1,0 +1,203 @@
+TensorFlow 2.0 Upgrade Script
+-----------------------------
+Converted 6 files
+Detected 5 issues that require attention
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+File: code/train.py
+--------------------------------------------------------------------------------
+code/train.py:72:15: WARNING: Changing dataset.make_initializable_iterator() to tf.compat.v1.data.make_initializable_iterator(dataset). Please check this transformation.
+
+code/train.py:315:36: WARNING: *.save requires manual check. (This warning is only applicable if the code saves a tf.Keras model) Keras model.save now saves to the Tensorflow SavedModel format by default, instead of HDF5. To continue saving to HDF5, add the argument save_format='h5' to the save() function.
+code/train.py:323:24: WARNING: *.save requires manual check. (This warning is only applicable if the code saves a tf.Keras model) Keras model.save now saves to the Tensorflow SavedModel format by default, instead of HDF5. To continue saving to HDF5, add the argument save_format='h5' to the save() function.
+--------------------------------------------------------------------------------
+File: code/PreProcess.py
+--------------------------------------------------------------------------------
+code/PreProcess.py:54:22: WARNING: tf.contrib.image.rotate requires manual check. (Manual edit required) `tf.contrib.image.rotate` has been migrated to `tfa.image.rotate` in TensorFlow Addons. The API spec may have changed during the migration. Please see https://github.com/tensorflow/addons for more info.
+code/PreProcess.py:54:22: ERROR: Using member tf.contrib.image.rotate in deprecated module tf.contrib. tf.contrib.image.rotate cannot be converted automatically. tf.contrib will not be distributed with TensorFlow 2.0, please consider an alternative in non-contrib TensorFlow, a community-maintained repository such as tensorflow/addons, or fork the required code.
+================================================================================
+Detailed log follows:
+
+================================================================================
+================================================================================
+Input tree: 'code/'
+================================================================================
+--------------------------------------------------------------------------------
+Processing file 'code/infer.py'
+ outputting to 'my_project_v2/infer.py'
+--------------------------------------------------------------------------------
+
+103:10: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+104:10: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+105:10: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+111:14: INFO: Renamed 'tf.global_variables' to 'tf.compat.v1.global_variables'
+118:12: INFO: Renamed 'tf.train.Saver' to 'tf.compat.v1.train.Saver'
+122:9: INFO: Renamed 'tf.Session' to 'tf.compat.v1.Session'
+124:17: INFO: tf.summary.FileWriter requires manual check. The TF 1.x summary API cannot be automatically migrated to TF 2.0, so symbols have been converted to tf.compat.v1.summary.* and must be migrated manually. Typical usage will only require changes to the summary writing logic, not to individual calls like scalar(). For examples of the new summary API, see the Effective TF 2.0 migration document or check the TF 2.0 TensorBoard tutorials.
+124:17: INFO: Renamed 'tf.summary.FileWriter' to 'tf.compat.v1.summary.FileWriter'
+126:17: INFO: Renamed 'tf.global_variables_initializer' to 'tf.compat.v1.global_variables_initializer'
+258:4: INFO: Renamed 'tf.app.run' to 'tf.compat.v1.app.run'
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'code/train.py'
+ outputting to 'my_project_v2/train.py'
+--------------------------------------------------------------------------------
+
+72:15: WARNING: Changing dataset.make_initializable_iterator() to tf.compat.v1.data.make_initializable_iterator(dataset). Please check this transformation.
+
+90:16: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+91:15: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+92:13: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+95:10: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+96:10: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+97:10: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+100:9: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+103:14: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+106:18: INFO: Renamed 'tf.where' to 'tf.compat.v1.where'
+108:18: INFO: Renamed 'tf.where' to 'tf.compat.v1.where'
+110:18: INFO: Renamed 'tf.where' to 'tf.compat.v1.where'
+118:15: INFO: Added keywords to args of function 'tf.reduce_sum'
+118:15: INFO: Renamed keyword argument for tf.reduce_sum from keep_dims to keepdims
+121:18: INFO: Added keywords to args of function 'tf.reduce_mean'
+122:25: INFO: Added keywords to args of function 'tf.reduce_mean'
+122:72: INFO: Added keywords to args of function 'tf.reduce_mean'
+123:25: INFO: Added keywords to args of function 'tf.reduce_mean'
+123:72: INFO: Added keywords to args of function 'tf.reduce_mean'
+125:17: INFO: Renamed 'tf.get_collection' to 'tf.compat.v1.get_collection'
+125:35: INFO: Renamed 'tf.GraphKeys' to 'tf.compat.v1.GraphKeys'
+126:17: INFO: Renamed 'tf.get_collection' to 'tf.compat.v1.get_collection'
+126:35: INFO: Renamed 'tf.GraphKeys' to 'tf.compat.v1.GraphKeys'
+127:17: INFO: Renamed 'tf.get_collection' to 'tf.compat.v1.get_collection'
+127:35: INFO: Renamed 'tf.GraphKeys' to 'tf.compat.v1.GraphKeys'
+128:17: INFO: Renamed 'tf.get_collection' to 'tf.compat.v1.get_collection'
+128:35: INFO: Renamed 'tf.GraphKeys' to 'tf.compat.v1.GraphKeys'
+130:15: INFO: Renamed 'tf.get_collection' to 'tf.compat.v1.get_collection'
+130:33: INFO: Renamed 'tf.GraphKeys' to 'tf.compat.v1.GraphKeys'
+133:9: INFO: Renamed 'tf.variable_scope' to 'tf.compat.v1.variable_scope'
+135:24: INFO: tf.train.exponential_decay requires manual check. To use learning rate decay schedules with TensorFlow 2.0, switch to the schedules in `tf.keras.optimizers.schedules`.
+
+135:24: INFO: Renamed 'tf.train.exponential_decay' to 'tf.compat.v1.train.exponential_decay'
+138:11: INFO: Renamed 'tf.train.AdamOptimizer' to 'tf.compat.v1.train.AdamOptimizer'
+139:11: INFO: Renamed 'tf.train.AdamOptimizer' to 'tf.compat.v1.train.AdamOptimizer'
+141:19: INFO: Renamed 'tf.get_collection' to 'tf.compat.v1.get_collection'
+141:37: INFO: Renamed 'tf.GraphKeys' to 'tf.compat.v1.GraphKeys'
+142:19: INFO: Renamed 'tf.get_collection' to 'tf.compat.v1.get_collection'
+142:37: INFO: Renamed 'tf.GraphKeys' to 'tf.compat.v1.GraphKeys'
+143:19: INFO: Renamed 'tf.get_collection' to 'tf.compat.v1.get_collection'
+143:37: INFO: Renamed 'tf.GraphKeys' to 'tf.compat.v1.GraphKeys'
+154:12: INFO: Renamed 'tf.train.Saver' to 'tf.compat.v1.train.Saver'
+211:13: INFO: Renamed 'tf.Session' to 'tf.compat.v1.Session'
+212:21: INFO: Renamed 'tf.global_variables_initializer' to 'tf.compat.v1.global_variables_initializer'
+315:36: WARNING: *.save requires manual check. (This warning is only applicable if the code saves a tf.Keras model) Keras model.save now saves to the Tensorflow SavedModel format by default, instead of HDF5. To continue saving to HDF5, add the argument save_format='h5' to the save() function.
+323:24: WARNING: *.save requires manual check. (This warning is only applicable if the code saves a tf.Keras model) Keras model.save now saves to the Tensorflow SavedModel format by default, instead of HDF5. To continue saving to HDF5, add the argument save_format='h5' to the save() function.
+360:4: INFO: Renamed 'tf.app.run' to 'tf.compat.v1.app.run'
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'code/GEDDnet.py'
+ outputting to 'my_project_v2/GEDDnet.py'
+--------------------------------------------------------------------------------
+
+59:9: INFO: Renamed 'tf.variable_scope' to 'tf.compat.v1.variable_scope'
+81:9: INFO: Renamed 'tf.variable_scope' to 'tf.compat.v1.variable_scope'
+103:30: INFO: Renamed 'tf.layers.batch_normalization' to 'tf.compat.v1.layers.batch_normalization'
+107:30: INFO: Renamed 'tf.layers.batch_normalization' to 'tf.compat.v1.layers.batch_normalization'
+111:30: INFO: Renamed 'tf.layers.batch_normalization' to 'tf.compat.v1.layers.batch_normalization'
+115:30: INFO: Renamed 'tf.layers.batch_normalization' to 'tf.compat.v1.layers.batch_normalization'
+119:30: INFO: Renamed 'tf.layers.batch_normalization' to 'tf.compat.v1.layers.batch_normalization'
+125:26: INFO: Renamed 'tf.layers.batch_normalization' to 'tf.compat.v1.layers.batch_normalization'
+127:26: INFO: Changing keep_prob arg of tf.nn.dropout to rate, and recomputing value.
+
+130:26: INFO: Renamed 'tf.layers.batch_normalization' to 'tf.compat.v1.layers.batch_normalization'
+149:9: INFO: Renamed 'tf.variable_scope' to 'tf.compat.v1.variable_scope'
+171:30: INFO: Renamed 'tf.layers.batch_normalization' to 'tf.compat.v1.layers.batch_normalization'
+175:30: INFO: Renamed 'tf.layers.batch_normalization' to 'tf.compat.v1.layers.batch_normalization'
+179:30: INFO: Renamed 'tf.layers.batch_normalization' to 'tf.compat.v1.layers.batch_normalization'
+183:30: INFO: Renamed 'tf.layers.batch_normalization' to 'tf.compat.v1.layers.batch_normalization'
+187:30: INFO: Renamed 'tf.layers.batch_normalization' to 'tf.compat.v1.layers.batch_normalization'
+193:26: INFO: Renamed 'tf.layers.batch_normalization' to 'tf.compat.v1.layers.batch_normalization'
+198:30: INFO: Renamed 'tf.layers.batch_normalization' to 'tf.compat.v1.layers.batch_normalization'
+202:30: INFO: Renamed 'tf.layers.batch_normalization' to 'tf.compat.v1.layers.batch_normalization'
+206:30: INFO: Renamed 'tf.layers.batch_normalization' to 'tf.compat.v1.layers.batch_normalization'
+210:30: INFO: Renamed 'tf.layers.batch_normalization' to 'tf.compat.v1.layers.batch_normalization'
+214:30: INFO: Renamed 'tf.layers.batch_normalization' to 'tf.compat.v1.layers.batch_normalization'
+220:26: INFO: Renamed 'tf.layers.batch_normalization' to 'tf.compat.v1.layers.batch_normalization'
+224:9: INFO: Renamed 'tf.variable_scope' to 'tf.compat.v1.variable_scope'
+233:26: INFO: Changing keep_prob arg of tf.nn.dropout to rate, and recomputing value.
+
+235:26: INFO: Renamed 'tf.layers.batch_normalization' to 'tf.compat.v1.layers.batch_normalization'
+237:26: INFO: Changing keep_prob arg of tf.nn.dropout to rate, and recomputing value.
+
+244:9: INFO: Renamed 'tf.variable_scope' to 'tf.compat.v1.variable_scope'
+292:9: INFO: Renamed 'tf.variable_scope' to 'tf.compat.v1.variable_scope'
+314:9: INFO: Renamed 'tf.variable_scope' to 'tf.compat.v1.variable_scope'
+336:30: INFO: Renamed 'tf.layers.batch_normalization' to 'tf.compat.v1.layers.batch_normalization'
+340:30: INFO: Renamed 'tf.layers.batch_normalization' to 'tf.compat.v1.layers.batch_normalization'
+344:30: INFO: Renamed 'tf.layers.batch_normalization' to 'tf.compat.v1.layers.batch_normalization'
+348:30: INFO: Renamed 'tf.layers.batch_normalization' to 'tf.compat.v1.layers.batch_normalization'
+352:30: INFO: Renamed 'tf.layers.batch_normalization' to 'tf.compat.v1.layers.batch_normalization'
+358:26: INFO: Renamed 'tf.layers.batch_normalization' to 'tf.compat.v1.layers.batch_normalization'
+360:26: INFO: Changing keep_prob arg of tf.nn.dropout to rate, and recomputing value.
+
+363:26: INFO: Renamed 'tf.layers.batch_normalization' to 'tf.compat.v1.layers.batch_normalization'
+382:9: INFO: Renamed 'tf.variable_scope' to 'tf.compat.v1.variable_scope'
+404:30: INFO: Renamed 'tf.layers.batch_normalization' to 'tf.compat.v1.layers.batch_normalization'
+408:30: INFO: Renamed 'tf.layers.batch_normalization' to 'tf.compat.v1.layers.batch_normalization'
+412:30: INFO: Renamed 'tf.layers.batch_normalization' to 'tf.compat.v1.layers.batch_normalization'
+416:30: INFO: Renamed 'tf.layers.batch_normalization' to 'tf.compat.v1.layers.batch_normalization'
+420:30: INFO: Renamed 'tf.layers.batch_normalization' to 'tf.compat.v1.layers.batch_normalization'
+426:26: INFO: Renamed 'tf.layers.batch_normalization' to 'tf.compat.v1.layers.batch_normalization'
+431:30: INFO: Renamed 'tf.layers.batch_normalization' to 'tf.compat.v1.layers.batch_normalization'
+435:30: INFO: Renamed 'tf.layers.batch_normalization' to 'tf.compat.v1.layers.batch_normalization'
+439:30: INFO: Renamed 'tf.layers.batch_normalization' to 'tf.compat.v1.layers.batch_normalization'
+443:30: INFO: Renamed 'tf.layers.batch_normalization' to 'tf.compat.v1.layers.batch_normalization'
+447:30: INFO: Renamed 'tf.layers.batch_normalization' to 'tf.compat.v1.layers.batch_normalization'
+453:26: INFO: Renamed 'tf.layers.batch_normalization' to 'tf.compat.v1.layers.batch_normalization'
+457:9: INFO: Renamed 'tf.variable_scope' to 'tf.compat.v1.variable_scope'
+466:26: INFO: Changing keep_prob arg of tf.nn.dropout to rate, and recomputing value.
+
+468:26: INFO: Renamed 'tf.layers.batch_normalization' to 'tf.compat.v1.layers.batch_normalization'
+470:26: INFO: Changing keep_prob arg of tf.nn.dropout to rate, and recomputing value.
+
+477:9: INFO: Renamed 'tf.variable_scope' to 'tf.compat.v1.variable_scope'
+484:12: INFO: Renamed 'tf.image.resize_images' to 'tf.image.resize'
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'code/PreProcess_eyecenter.py'
+ outputting to 'my_project_v2/PreProcess_eyecenter.py'
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'code/tf_utils.py'
+ outputting to 'my_project_v2/tf_utils.py'
+--------------------------------------------------------------------------------
+
+23:11: INFO: Added keywords to args of function 'tf.nn.conv2d'
+23:11: INFO: Renamed keyword argument for tf.nn.conv2d from filter to filters
+27:11: INFO: Added keywords to args of function 'tf.nn.convolution'
+27:11: INFO: Renamed keyword argument for tf.nn.convolution from filter to filters
+32:11: INFO: Added keywords to args of function 'tf.nn.max_pool'
+32:11: INFO: Renamed keyword argument for tf.nn.max_pool from value to input
+32:11: INFO: Renamed 'tf.nn.max_pool' to 'tf.nn.max_pool2d'
+37:14: INFO: Renamed 'tf.truncated_normal' to 'tf.random.truncated_normal'
+49:14: INFO: Renamed 'tf.random_normal' to 'tf.random.normal'
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Processing file 'code/PreProcess.py'
+ outputting to 'my_project_v2/PreProcess.py'
+--------------------------------------------------------------------------------
+
+54:22: WARNING: tf.contrib.image.rotate requires manual check. (Manual edit required) `tf.contrib.image.rotate` has been migrated to `tfa.image.rotate` in TensorFlow Addons. The API spec may have changed during the migration. Please see https://github.com/tensorflow/addons for more info.
+54:22: ERROR: Using member tf.contrib.image.rotate in deprecated module tf.contrib. tf.contrib.image.rotate cannot be converted automatically. tf.contrib will not be distributed with TensorFlow 2.0, please consider an alternative in non-contrib TensorFlow, a community-maintained repository such as tensorflow/addons, or fork the required code.
+56:22: INFO: Renamed 'tf.image.resize_images' to 'tf.image.resize'
+57:20: INFO: Added keywords to args of function 'tf.shape'
+92:22: INFO: Renamed 'tf.image.resize_images' to 'tf.image.resize'
+93:20: INFO: Added keywords to args of function 'tf.shape'
+--------------------------------------------------------------------------------
+
