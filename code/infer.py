@@ -13,17 +13,17 @@ from __future__ import print_function
 import argparse
 import sys
 
-import os
+#import os
 import numpy as np
-import random
+#import random
 import tensorflow.compat.v1 as tf
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import cv2
 import dlib
 import math
 from GEDDnet import GEDDnet_infer
 import PreProcess_eyecenter as PreP
-import scipy.io as spio
+#import scipy.io as spio
 
 
 def _2d2vec(input_angle):
@@ -67,9 +67,21 @@ def main(_):
     tf.compat.v1.disable_eager_execution()
 
     # get camera matrix
-    dataset = spio.loadmat(FLAGS.camera_mat)
-    cameraMat = dataset['camera_matrix']
+    #dataset = spio.loadmat(FLAGS.camera_mat)
+    #cameraMat = dataset['camera_matrix']
+
+    #cameraMat = np.array([[1.45610358e+03, 0.00000000e+00, 9.23085278e+02],
+    #                      [0.00000000e+00, 1.45701054e+03, 5.38035298e+02],
+    #                      [0.00000000e+00, 0.00000000e+00, 1.00000000e+00]])
+    
+    cameraMat = np.array([[1.45610358e+03, 0.00000000e+00, 9.23085278e+00],
+                          [0.00000000e+00, 1.45701054e+03, 5.38035298e+00],
+                          [0.00000000e+00, 0.00000000e+00, 1.00000000e+00]])
+
+    print("Camera Matrix", cameraMat)
     inv_cameraMat = np.linalg.inv(cameraMat)
+    # Assuming FHD input 
+    # My laptop has ... 720p camera?
     cam_new = np.mat([[1536., 0., 960.],[0., 1536., 540.],[0., 0., 1.]])
     cam_face = np.mat([[1536., 0., 48.],[0., 1536., 48.],[0., 0., 1.]])
     inv_cam_face = np.linalg.inv(cam_face)
@@ -89,15 +101,18 @@ def main(_):
     video_capture.set(cv2.CAP_PROP_AUTOFOCUS, 1)
     video_capture.set(3, 1920)
     video_capture.set(4, 1080)
+    
     scale = 0.25
     input_size = (64, 96)
     gaze_lock = np.zeros(6, np.float64)
     gaze_unlock = np.zeros(15, np.float64)
     gaze_cursor = np.zeros(1, np.int_)
     shape = None
+    
     face_backup = np.zeros((input_size[1], input_size[1], 3))
     left_backup = np.zeros((input_size[1], input_size[1], 3))
     rigt_backup = np.zeros((input_size[1], input_size[1], 3))
+    
     # define model
     mu = np.array([123.68, 116.779, 103.939], dtype=np.float32).reshape(
         (1, 1, 3))
@@ -111,6 +126,10 @@ def main(_):
     y_conv, face_h_trans, h_trans = GEDDnet_infer(x_f, x_l, x_r, mu,
                                                   vgg_path=FLAGS.vgg_dir,
                                                   num_subj=FLAGS.num_subject)
+    
+    print("Y_CONV", y_conv)
+    print("face_h_trans", face_h_trans)
+    print("h_tras", h_trans)
 
     all_var = tf.global_variables()
     var_to_restore = []
@@ -144,13 +163,15 @@ def main(_):
             # detect faces in the grayscale frame in every other frame
             if counter % 2 == 0:
                 rects = detector(gray, 1)
-            # loop over the face detections
 
-            for (ii, rect) in enumerate(rects):
-                # determine the facial landmarks for the face region, then
-                # convert the facial landmark (x, y)-coordinates to a NumPy
-                # array
-                if ii == 0:
+                # loop over the face detections
+                # Facial landmarks include 6-point eye landmarks
+                for (ii, rect) in enumerate(rects):
+                    # determine the facial landmarks for the face region, then
+                    # convert the facial landmark (x, y)-coordinates to a NumPy
+                    # array
+                    print("len(rects)", len(rects))
+                    rect = rects[0]
                     tmp = np.array([rect.left(), rect.top(), rect.right(),rect.bottom()]) / scale
                     tmp = tmp.astype(int) # np.longlong) Has to be longlong??
                     rect_new = dlib.rectangle(tmp[0], tmp[1], tmp[2], tmp[3])
@@ -158,8 +179,9 @@ def main(_):
                     shape = shape_to_np(shape)
                     shape = shape.astype(np.int_)
                     currFace = True
+                    
                     #for (x, y) in shape:
-                        #cv2.circle(frame, (x, y), 3, (255, 0, 0), -1)
+                    #    cv2.circle(frame, (x, y), 3, (255, 0, 0), -1)
 
             # cut the face
             if shape is None:
